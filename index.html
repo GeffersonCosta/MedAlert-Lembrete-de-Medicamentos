@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedAlert</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+
+  <header class="header">
+    <h1>MedAlert: Lembretes de Medicamentos</h1>
+  </header>
+  <main>
+    <section id="medication-form">
+      <h2>Cadastrar Medicamento</h2>
+      <form>
+        <label for="medication-name">Nome do Medicamento:</label>
+        <input type="text" id="medication-name" required>
+
+        <label for="dosage">Dosagem:</label>
+        <input type="text" id="dosage" required>
+
+        <label for="time">Horário:</label>
+        <input type="time" id="time" required>
+
+        <button class="botao" type="submit">Adicionar Medicamento</button>
+      </form>
+    </section>
+    <section id="medication-list">
+      <h2>Lista de Medicamentos</h2>
+      <ul id="list"></ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
+  <script src="server.js"></script>
+</body>
+
+</html>
