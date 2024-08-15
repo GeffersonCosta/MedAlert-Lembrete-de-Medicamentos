@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const medication = { medicationName, dosage, time };
 
         // Enviar dados para o servidor
-        fetch('https://ae00-2a01-14-122-d740-9cb7-255d-431e-a058.ngrok-free.app/add-medication', {
+        fetch('http://localhost:3000/add-medication', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
