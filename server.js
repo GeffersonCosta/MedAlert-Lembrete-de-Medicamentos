@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // Configuração do banco de dados MySQL
 const db = mysql.createConnection({
-  host: '127.0.0.1',
+  host: 'localhost',
   user: 'root',
   password: 'root',
   database: 'medalert'

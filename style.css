@@ -14,7 +14,6 @@ header {
   width: 100%;
   padding: 1rem 0;
   text-align: center;
- 
 }
 main {
   max-width: 800px;
@@ -40,6 +39,7 @@ input[type="text"],
 input[type="time"] {
   padding: 0.5rem;
   margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 
 button {
@@ -59,6 +59,10 @@ button:hover {
   list-style: none;
   padding: 0;
 }
+#list {
+  text-transform: uppercase;
+  font-weight: 700;
+}
 
 #medication-list li {
   background-color: white;
@@ -69,11 +73,43 @@ button:hover {
   justify-content: space-between;
   align-items: center;
 }
+/* Exemplo de estilo para a classe highlight */
+.highlight {
+  border: 2px solid red; /* Borda inicial vermelha */
+  animation: Blink 1s step-start infinite,
+    highlightbackgroud 1s step-start infinite; /* Aplica a animação de piscar a borda */
+}
+@keyframes highlightbackgroud {
+  0% {
+    background-color: rgb(226, 95, 95);
+  }
+  50% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: rgb(226, 95, 95);
+  }
+}
+@keyframes Blink {
+  0% {
+    border-color: red;
+    border-width: 2px;
+  }
+  50% {
+    border-color: transparent;
+    border-width: 4px;
+  }
+  100% {
+    border-color: red;
+    border-width: 2px;
+  }
+}
+
 @media (max-width: 800px) {
-  main{
+  main {
     max-width: 300px;
   }
-  .header h1{
+  .header h1 {
     font-size: 1.8rem;
   }
   h2 {

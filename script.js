@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carregar o som de alarme
     const alarmSound = new Audio('./alarme.mp3');
+    let alarmTimeout;
+    let currentMedicationElement = null; // Referência ao medicamento atualmente em destaque
 
     // Carregar medicamentos do localStorage ao iniciar a página
     loadMedications();
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deleteMedication = (button) => {
         const listItem = button.parentElement;
         const medicationText = listItem.querySelector('span').textContent;
-        
+
         const [medicationPart, timePart] = medicationText.split(' às ');
         const [medicationName, dosage] = medicationPart.split(' - ');
 
@@ -61,6 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Remover o item do localStorage
         removeMedication(medicationName.trim(), dosage.trim(), timePart.trim());
+
+        // Se o item excluído for o medicamento em destaque, parar o alarme
+        if (currentMedicationElement === listItem) {
+            stopAlarm();
+        }
     };
 
     function setReminder(name, dosage, time) {
@@ -70,12 +77,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (reminderTime > now) {
             const timeout = reminderTime - now;
-            setTimeout(() => {
-                alarmSound.play(); // Tocar som do alarme
-                alert(`Hora de tomar ${name} - ${dosage}`);
-                alarmSound.pause(); // Parar o som do alarme
-                alarmSound.currentTime = 0; // Reiniciar o som
+            alarmTimeout = setTimeout(() => {
+                console.log('Tocando alarme'); // Debug: Verifica se o alarme está tocando
+                alarmSound.loop = true; // Faz o som tocar em loop
+                alarmSound.play().catch((error) => {
+                    console.error('Erro ao reproduzir o som:', error);
+                });
+
+                // Destacar o medicamento atual
+                highlightCurrentMedication(name, dosage);
+
             }, timeout);
+        }
+    }
+
+    function highlightCurrentMedication(name, dosage) {
+        // Remover destaque de medicamentos anteriores
+        const previousMedication = document.querySelector('li.highlight');
+        if (previousMedication) {
+            previousMedication.classList.remove('highlight');
+        }
+
+        // Encontrar e destacar o medicamento atual
+        const medicationItems = document.querySelectorAll('#list li span');
+        medicationItems.forEach(span => {
+            if (span.textContent.includes(name) && span.textContent.includes(dosage)) {
+                currentMedicationElement = span.parentElement;
+                currentMedicationElement.classList.add('highlight');
+            }
+        });
+    }
+
+    function stopAlarm() {
+        if (alarmSound) {
+            alarmSound.pause();
+            alarmSound.currentTime = 0; // Reiniciar o som
+        }
+        if (alarmTimeout) {
+            clearTimeout(alarmTimeout); // Cancelar o alarme se ainda estiver pendente
+        }
+        if (currentMedicationElement) {
+            currentMedicationElement.classList.remove('highlight');
+            currentMedicationElement = null;
         }
     }
 
@@ -102,3 +145,21 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('medications', JSON.stringify(medications));
     }
 });
+
+function highlightCurrentMedication(name, dosage) {
+    // Remover destaque de medicamentos anteriores
+    const previousMedication = document.querySelector('li.highlight');
+    if (previousMedication) {
+        previousMedication.classList.remove('highlight');
+    }
+
+    // Encontrar e destacar o medicamento atual
+    const medicationItems = document.querySelectorAll('#list li span');
+    medicationItems.forEach(span => {
+        if (span.textContent.includes(name) && span.textContent.includes(dosage)) {
+            currentMedicationElement = span.parentElement;
+            currentMedicationElement.classList.add('highlight');
+        }
+    });
+}
+
