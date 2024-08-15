@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const medicationList = document.getElementById('list');
 
     // Carregar o som de alarme
-    const alarmSound = new Audio('caminho/para/seu/arquivo/som.mp3');
+    const alarmSound = new Audio('./alarme.mp3');
 
     // Carregar medicamentos do localStorage ao iniciar a página
     loadMedications();
@@ -71,8 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (reminderTime > now) {
             const timeout = reminderTime - now;
             setTimeout(() => {
-                alert(`Hora de tomar ${name} - ${dosage}`);
                 alarmSound.play(); // Tocar som do alarme
+                alert(`Hora de tomar ${name} - ${dosage}`);
+                alarmSound.pause(); // Parar o som do alarme
+                alarmSound.currentTime = 0; // Reiniciar o som
             }, timeout);
         }
     }
