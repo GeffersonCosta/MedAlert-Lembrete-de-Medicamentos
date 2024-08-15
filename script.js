@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const medicationList = document.getElementById('list');
+    console.log(localStorage.getItem('medications'));
 
     // Carregar o som de alarme
     const alarmSound = new Audio('./alarme.mp3');
