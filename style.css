@@ -7,6 +7,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 header {
   background-color: #6c7ae0;
@@ -56,8 +57,10 @@ button:hover {
 }
 
 #medication-list ul {
+  height: 100px;
   list-style: none;
   padding: 0;
+  overflow: scroll;
 }
 #list {
   text-transform: uppercase;
@@ -73,7 +76,7 @@ button:hover {
   justify-content: space-between;
   align-items: center;
 }
-/* Exemplo de estilo para a classe highlight */
+
 .highlight {
   border: 2px solid red; /* Borda inicial vermelha */
   animation: Blink 1s step-start infinite,

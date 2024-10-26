@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const medication = { medicationName, dosage, time };
 
         // Enviar dados para o servidor
+        //https://167c-2a01-14-122-d740-5d29-3595-2145-66be.ngrok-free.app/
+        //http://localhost:3000/add-medication
         fetch('http://localhost:3000/add-medication', {
             method: 'POST',
             headers: {
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Tocando alarme'); // Debug: Verifica se o alarme está tocando
                 alarmSound.loop = true; // Faz o som tocar em loop
                 alarmSound.play().catch((error) => {
-                    console.error('Erro ao reproduzir o som:', error);
+                    console.log('Erro ao reproduzir o som:', error);
                 });
 
                 // Destacar o medicamento atual
